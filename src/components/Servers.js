@@ -41,7 +41,27 @@ const Servers = () => {
   const [playerSort, setPlayerSort] = useState('desc'); // 'none', 'asc', 'desc'
   const [minPlayers, setMinPlayers] = useState(0);
   const [maxPlayers, setMaxPlayers] = useState(24);
+  const [bannedWords, setBannedWords] = useState([]);
+
+  useEffect(() => {
+    axios.get("/badwords.txt")
+      .then(response => {
+        const words = response.data.split("\n").map(word => word.trim());
+        setBannedWords(words);
+      })
+      .catch(error => console.error("Failed to load banned words:", error));
+  }, []);
   
+
+  const filterBadWords = (text) => {
+    let filteredText = text;
+    bannedWords.forEach((word) => {
+      const regex = new RegExp(`\\b${word}\\b`, "gi");
+      filteredText = filteredText.replace(regex, "*".repeat(word.length));
+    });
+    return filteredText;
+  };
+
   // Define applyFilters first to avoid the circular dependency
   const applyFilters = useCallback((serverList) => {
     const listToFilter = serverList || servers;
@@ -360,7 +380,7 @@ const Servers = () => {
               <tbody>
                 {filteredServers.map(server => (
                   <tr key={server.id}>
-                    <td>{server.name}</td>
+                    <td>{filterBadWords(server.name)}</td>
                     <td>{server.map}</td>
                     <td>{server.players}</td>
                     <td>{server.region}</td>
