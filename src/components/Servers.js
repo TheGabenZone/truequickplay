@@ -129,8 +129,8 @@ const Servers = () => {
       applyFilters(serverData);
       setLoading(false);
     } catch (err) {
-      console.error('Error fetching servers:', err);
-      setError('Failed to load servers. Please try again later.');
+      console.error('Error al buscar servidores:', err);
+      setError('No se pudieron cargar los servidores. Intente de nuevo mas tarde.');
       setLoading(false);
     }
   }, [regionFilters, gamemodeFilters, applyFilters]);
@@ -202,24 +202,24 @@ const Servers = () => {
       // Show a helpful message to the user
       setTimeout(() => {
         if (document.visibilityState === 'visible') {
-          console.log('Still on page, connection might have failed');
-          alert('If TF2 didn\'t launch automatically, you can copy the server address and connect manually through the console: connect ' + serverAddress);
+          console.log('La conexión puede estar teniendo problemas');
+          alert('Si el juego no inició automaticamente, copia el IP del servidor y conéctate manualmente en la consola: connect ' + serverAddress);
         }
       }, 3000);
     } catch (err) {
-      console.error('Error joining server:', err);
-      alert('Failed to join server. Please try again or connect manually through the TF2 console: connect ' + serverAddress);
+      console.error('Error al unirse al servidor:', err);
+      alert('No se pudo unir al servidor. Intente de nuevo o conéctate manualmente en la consola: connect ' + serverAddress);
     }
   }, []);
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
       .then(() => {
-        alert('Server address copied to clipboard! You can now paste it in the TF2 console with "connect" command.');
+        alert('IP del servidor copiado al portapapeles! Puedes pegarla en la consola con el comando "connect".');
       })
       .catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Failed to copy. Please manually copy: ' + text);
+        console.error('No se pudo copiar: ', err);
+        alert('Por favor copie manualmente: ' + text);
       });
   };
   
@@ -230,10 +230,10 @@ const Servers = () => {
         <p>Find and join servers running with the "truequickplay" tag</p>
         <div className="server-controls">
           <button className="refresh-button" onClick={() => fetchServers(true)} disabled={loading}>
-            {loading ? 'Refreshing...' : 'Refresh Servers'}
+            {loading ? 'Refrescando...' : 'Refrescar la lista'}
           </button>
           <button className="filter-toggle-button" onClick={() => setShowFilters(!showFilters)}>
-            {showFilters ? 'Hide Filters' : 'Show Filters'}
+            {showFilters ? 'Esconder Filtros' : 'Mostrar Filtros'}
           </button>
         </div>
       </div>
@@ -337,24 +337,24 @@ const Servers = () => {
       <div className="servers-list-container">
         {loading ? (
           <div className="loading-message">
-            <h2>Loading servers...</h2>
+            <h2>Cargando servidores</h2>
             <div className="loading-spinner"></div>
           </div>
         ) : error ? (
           <div className="error-message">
             <h3>{error}</h3>
-            <button className="retry-button" onClick={fetchServers}>Try Again</button>
+            <button className="retry-button" onClick={fetchServers}>Reintentar</button>
           </div>
         ) : filteredServers.length > 0 ? (
           <div className="servers-table-container">
             <table className="servers-table">
               <thead>
                 <tr>
-                  <th>Server Name</th>
-                  <th>Map</th>
-                  <th>Players</th>
-                  <th>Region</th>
-                  <th>Action</th>
+                  <th>Nombre del Servidor</th>
+                  <th>Mapa</th>
+                  <th>Jugadores</th>
+                  <th>Región</th>
+                  <th>Acción</th>
                 </tr>
               </thead>
               <tbody>
@@ -388,39 +388,39 @@ const Servers = () => {
           </div>
         ) : (
           <div className="no-servers">
-            <h3>No servers match your filters</h3>
+            <h3>No hay servidores que coincidan con los filtros</h3>
             <button className="reset-filters-button" onClick={resetFilters}>Reset Filters</button>
           </div>
         )}
       </div>
       
       <div className="create-server-section">
-        <h2>Create Your Own Server</h2>
+        <h2>Crear tu propio servidor</h2>
         <div className="server-instructions">
           <div className="instruction-step">
             <h3>Step 1</h3>
-            <p>Create a TF2 Listen Server with any map you want. Make sure Steam Networking is enabled.</p>
+            <p>Crea un servidor con cualquier mapa que quieras. Asegúrate de que el boton Steam Networking esté habilitado.</p>
           </div>
           
           <div className="instruction-step">
             <h3>Step 2</h3>
-            <p>Write "sv_tags" in console followed by "truequickplay". This step is MANDATORY in order to be a part of this movement.</p>
+            <p>Escribe "sv_tags" en la consola, seguido de "truequickplay". Esto es OBLIGATORIO para poder participar en el movimiento.</p>
           </div>
           
           <div className="instruction-step">
             <h3>Step 3</h3>
-            <p>Either wait for people to enter, or join the Discord and promote your server there with the respective ping.</p>
+            <p>Espera a que la gente se una, o comparte la IP en el servidor de Discord con el ping respectivo.</p>
           </div>
           
           <div className="instruction-step">
             <h3>Step 4</h3>
-            <p>Have fun playing TF2 the way it was meant to be played!</p>
+            <p>Diviertete jugando TF2 como realmente se supone que se juege!</p>
           </div>
         </div>
         
         <div className="join-discord">
           <a href="https://discord.gg/pnBbJg2tZf" target="_blank" rel="noopener noreferrer" className="discord-button">
-            Join our Discord
+          Únete al Discord
           </a>
         </div>
       </div>

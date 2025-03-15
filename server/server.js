@@ -80,11 +80,11 @@ app.get('/api/servers', async (req, res) => {
       }
     });
 
-    console.log('API Response Status:', response.status);
+    console.log('Estado de respuesta de API:', response.status);
     
     // Check if we have servers
     if (!response.data || !response.data.response || !response.data.response.servers || response.data.response.servers.length === 0) {
-      console.log('No servers found with the truequickplay tag. Using mock data for development.');
+      console.log('No se encontraron servidores con el tag truequickplay. Usando datos simulados para el desarrollo.');
       
       // Provide mock data for development/testing purposes
       const mockServers = [
@@ -136,7 +136,7 @@ app.get('/api/servers', async (req, res) => {
       try {
         // Make sure we have a valid address
         if (!server.addr || !server.addr.includes(':')) {
-          console.log(`Invalid server address: ${server.addr}`);
+          console.log(`IP del servidor inválido: ${server.addr}`);
           return null;
         }
     
@@ -212,7 +212,7 @@ app.get('/api/servers', async (req, res) => {
           address: server.addr
         };
       } catch (error) {
-        console.error(`Error processing server ${server.addr}:`, error);
+        console.error(`Error procesando el servidor ${server.addr}:`, error);
         return null;
       }
     });
@@ -233,7 +233,7 @@ app.get('/api/servers', async (req, res) => {
     
     // If we have cached data, return it as a fallback
     if (serverCache.data) {
-      console.log('Returning cached data as fallback after error');
+      console.log('Devolviendo datos guardados para retorno del error');
       return res.status(200).json({ 
         servers: serverCache.data, 
         isMockData: serverCache.isMockData,
@@ -371,7 +371,7 @@ app.delete('/api/debug/cache', (req, res) => {
     timestamp: 0,
     isMockData: false
   };
-  res.json({ message: 'Cache cleared successfully' });
+  res.json({ message: 'Cache limpiado de forma exitosa' });
 });
 app.get('/api/join/:address', (req, res) => {
   try {
@@ -381,7 +381,7 @@ app.get('/api/join/:address', (req, res) => {
     
     res.json({ joinUrl });
   } catch (error) {
-    console.error('Error generating join URL:', error);
-    res.status(500).json({ message: 'Error generating join URL', error: error.message });
+    console.error('Error generando URL de conexión:', error);
+    res.status(500).json({ message: 'Error generando URL de conexión', error: error.message });
   }
 });

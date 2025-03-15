@@ -13,7 +13,7 @@ const Home = () => {
       </div>
       <div className="content">
         <h1>True Quickplay</h1>
-        <p>Bringing back the classic Team Fortress 2 experience!</p>
+        <p>Trayendo de vuelta a la vida la experiencia clásica de Team Fortress 2!</p>
       </div>
     </div>
   );
