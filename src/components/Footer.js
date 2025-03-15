@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-bottom">
-        <p>&copy; {year} True Quickplay. All rights reserved.</p>
+        <p>&copy; {year} True Quickplay. Todos los derechos reservados al autor.</p>
       </div>
     </footer>
   );
